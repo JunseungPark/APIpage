@@ -1,0 +1,28 @@
+body {
+    height: 10000vh;
+}
+#contents >div {
+    position: relative;
+}
+#section1 {
+    height: 7000px;
+}
+.fixed {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.scroll {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    color: #000;
+    background: rgba(253, 220, 220, 0.3);
+    border-radius: 50%;
+    z-index: 10000;
+}
