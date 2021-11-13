@@ -120,7 +120,6 @@
         {
             // Kakao
             Kakao.init('964540b062d60b4747e652a2ccd042d4'); //발급받은 키 중 javascript키를 사용해준다.
-            console.log(Kakao.isInitialized()); // sdk초기화여부판단
             //카카오로그인
             function kakaoLogin() {
                 Kakao.Auth.login({
@@ -176,11 +175,10 @@
                     if (status) {
                         //유저 정보 가져오기
                         console.log(naverLogin.user)
+                        setName(naverLogin.user.name)
                         return;
                         
-                    } else {
-                        console.log("callback 처리에 실패하였습니다.");
-                    }
+                    } 
                 });
             });
 
@@ -202,7 +200,6 @@
                 
             }
         }
-
 
         {
             // 구글로그인
@@ -233,6 +230,7 @@
                     //프로필을 가져온다.
                     var profile = googleUser.getBasicProfile();
                     console.log(profile)
+                    setName(profile.Re);
                 })
                 .fail(function(e){
                     console.log(e);
@@ -241,6 +239,13 @@
             
             function onSignInFailure(t){		
                 console.log(t);
+            }
+
+            function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                    console.log('User signed out.');
+                });
             }
             
         }
