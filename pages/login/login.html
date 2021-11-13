@@ -29,13 +29,6 @@
             </div>
             <div id="status"></div>
             <ul>
-                <!-- FaceBook -->
-                <li class="fb-login-button" scope="public_profile,email" onlogin="checkLoginState();" data-max-rows="1">
-                    <a href="javascript:void(0)">
-                        <img src="../../assets/img/facebook.svg">
-                        <span>Facebook Login</span>
-                    </a>
-                </li>
                 <!-- Google -->
                 <li id="GgCustomLogin">
                     <a href="javascript:void(0)">
@@ -45,7 +38,6 @@
                 </li>
                 <!-- Naver -->
                 <li>
-                    <!-- 아래와같이 아이디를 꼭 써준다. -->
                     <a id="naverIdLogin_loginButton" href="javascript:void(0)">
                         <img src="../../assets/img/naver.svg">
                         <span>Naver Login</span>
@@ -67,19 +59,13 @@
                 <span>저희 사이트는 API 중점의 페이지이기에 기능이 잘 작동하는지를 확인하기에 정보를 저장하지 않습니다! 안전하게 기능테스트를 마무리하셨음으로 뒤돌아가기를 눌러주세요! 감사합니다.:)</span>
             </div>
             <ul>
-                <li onclick="FacebookLogout(); return false;">
-                    <a href="javascript:void(0)">
-                        <img src="../../assets/img/facebook.svg">
-                        <span>Facebook Logout</span>
-                    </a>
-                </li>
                 <li onclick="googleLogout();">
                     <a href="javascript:void(0)">
                         <img src="../../assets/img/google.svg">
                         <span>Google Logout</span>
                     </a>
                 </li>
-                <li onclick="naverLogout(); return false;">
+                <li onclick="setLogoutStatus(); return false;">
                     <a href="javascript:void(0)">
                         <img src="../../assets/img/naver.svg">
                         <span>Naver Logout</span>
@@ -92,83 +78,25 @@
                     </a>
                     </li>
             </ul>
-            <!-- GooGle -->
         </div>
+        <figure class="back_main"><img src="../../assets/img/maintag.jpg" />
+            <figcaption><span>Main</span></figcaption>
+            <a href="../main.html"></a>
+        </figure>
     </main>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-    <!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script> -->
+    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
     <script>
     {
-
         {
-            window.fbAsyncInit = function() {
-                FB.init({
-                appId : '313006453711208',
-                cookie : true, // enable cookies to allow the server to access the session
-                xfbml : true, // parse social plugins on this page
-                version : 'v12.0' // use graph api version 2.8
-                });
-
-                FB.getLoginStatus(function(response) {
-                    statusChangeCallback(response);
-                });
-            };
-
-            (function(d, s, id){
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) {return;}
-                js = d.createElement(s); js.id = id;
-                js.src = "https://connect.facebook.net/en_US/sdk.js"
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-
-            function statusChangeCallback(response) {
-                
-                console.log('statusChangeCallback');
-
-                if (response.status === 'connected') {
-                    console.log(response.authResponse.accessToken);
-                    // Logged into your app and Facebook.
-                    testAPI();
-                } else if (response.status === 'not_authorized') {
-                    document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
-                } else {
-                    document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
-                }
-
+            window.onload = function(){
+                //카카오 로그아웃
+                kakaoLogout();
+                naverLogin.init();
             }
-
-            function checkLoginState() {
-                FB.getLoginStatus(function(response) {
-                    statusChangeCallback(response);
-                });
-            }
-            
-            function testAPI() {
-                console.log('Welcome! Fetching your information.... ');
-                FB.api(
-                    '/me',
-                    {"fields":"id,name,email"},
-                    function(response) {
-                    // Insert your code here
-                    console.log('Successful login for: ' + response.name);
-
-                    document.getElementById('status').innerHTML = JSON.stringify(response);
-                    }
-                );
-            }
-
-            function fblogout(){
-                FB.logout(function(response) {
-                    window.location.reload();
-                });
-            }
-        }
-
-        {
             // Kakao
             Kakao.init('964540b062d60b4747e652a2ccd042d4'); //발급받은 키 중 javascript키를 사용해준다.
             //카카오로그인
@@ -200,6 +128,7 @@
                     url: '/v1/user/unlink',
                     success: function (response) {
                         console.log(response)
+                        onLogout();
                     },
                     fail: function (error) {
                     console.log(error)
@@ -216,7 +145,7 @@
                 {
                     clientId: "8cL65jnOZOuOYa5YyMgl", //내 애플리케이션 정보에 cliendId를 입력해줍니다.
                     callbackUrl: "http://localhost:5500/pages/login/login.html", // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
-                    isPopup: true,
+                    isPopup: false,
                     callbackHandle: true
                 }
             );	
@@ -225,33 +154,37 @@
 
             window.addEventListener('load', function () {
                 naverLogin.getLoginStatus(function (status) {
-                    //로그인 상태 확인
+            console.log(naverLogin); 
+
                     if (status) {
-                        //유저 정보 가져오기
-                        console.log(naverLogin.user)
-                        onLogin(naverLogin.user.name)
-                        return;
+                        var email = naverLogin.user.getName(); // 필수로 설정할것을 받아와 아래처럼 조건문을 줍니다.
                         
-                    } 
+                        console.log(naverLogin.user);             
+                        if( email == undefined || email == null) {
+                            alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
+                            naverLogin.reprompt();
+                            return;
+                        }
+                        onLogin(email);
+                    } else {
+                        console.log("callback 처리에 실패하였습니다.");
+                    }
                 });
             });
 
             var testPopUp;
-            //로그아웃 팝업 열기
             function openPopUp() {
                 testPopUp= window.open("https://nid.naver.com/nidlogin.logout", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1,height=1");
             }
-            //로그아웃 팝업 닫기
             function closePopUp(){
                 testPopUp.close();
             }
-            
-            function naverLogout() {
+            function setLogoutStatus(){
                 openPopUp();
                 setTimeout(function() {
                     closePopUp();
-                    }, 1000);
-                
+                    onLogout()
+                }, 1000);
             }
         }
 
@@ -326,6 +259,13 @@
             document.querySelector(".name").innerHTML = str + "님 반갑습니다. :)";
         }
     }
+
+    $(".hover").mouseleave(
+        function () {
+            $(this).removeClass("hover");
+        }
+    );
+
     </script>
 
     
