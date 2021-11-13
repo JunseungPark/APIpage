@@ -1,19 +1,28 @@
 /* api-pages-setting */
 body {
     width: 100%;
-    background-image: url('../../assets/img/pages.png');
-}
-.container {
+    background-image: url('../../assets/img/pages.svg');
     text-align: center;
     margin: 0 auto;
+    overflow: hidden;
 }
 #header {
+    position: relative;
     height: 20vh;
     border-bottom: 5px double #000;
 }
 #header h2 {
-    font-family: 'Rakkas';
+    position: absolute;
+    font-family: 'Rakkas', cursive;
     font-size: 6vw;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+}
+.login_title {
+    display: none;
+}
+.login_title.show {
+    display: block;
 }
 .login_contents {
     display: none;
@@ -29,19 +38,28 @@ body {
     font-size: 1vw;
 }
 .login_contents li {
-    padding: 2vh 0;
-    margin: 2vh auto;
-    width: 50%;
+    text-align: left;
+    padding: 2.5vh 0vh 2vh 5vh;
+    margin: 2.5vh auto;
+    width: 30%;
     border: 1px solid #000;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+.login_contents li:hover {
+    background-color: #aaaaaa79;
 }
 .login_contents li a img{
-    width: 2vw;
+    width: 2.5vw;
     display: inline-block;
+    margin-right: 3vw;
 }
 .login_contents li a span {
     display: inline-block;
-    font-family: 'Ramaraja';
-    font-size: 2vw;
+    font-family: 'Ramaraja', serif;
+    font-size: 2.5vw;
+    line-height: 0.1;
+    vertical-align: 0.3vw;
 }
 .logout_contents {
     display: none;
@@ -49,25 +67,51 @@ body {
 .logout_contents.show {
     display: block;
 }
+.logout_title {
+    display: none;
+}
+.logout_title.show {
+    display: block;
+}
 .logout_contents .logout_desc {
     font-family: 'NEXONLv1Gothic';
     font-weight: 300;
     margin: 5vh auto;
-    width: 58vw;
+    width: 50%;
     font-size: 1vw;
 }
+.logout_contents .logout_desc span {
+    display: block;
+}
+.logout_contents .logout_desc span:first-child {
+    font-weight: 500;
+}
+.logout_contents .logout_desc .name {
+    font-size: 1.5vw;
+    font-weight: 500;
+    margin-bottom: 2vh;
+}
 .logout_contents li {
-    padding: 2vh 0;
-    margin: 2vh auto;
-    width: 50vw;
+    text-align: left;
+    padding: 2.5vh 0vh 2vh 5vh;
+    margin: 2.5vh auto;
+    width: 30%;
     border: 1px solid #000;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+.logout_contents li:hover {
+    background-color: #aaaaaa79;
 }
 .logout_contents li a img{
-    width: 2vw;
+    width: 2.5vw;
     display: inline-block;
+    margin-right: 3vw;
 }
 .logout_contents li a span {
     display: inline-block;
-    font-family: 'Ramaraja';
-    font-size: 2vw;
+    font-family: 'Ramaraja', serif;
+    font-size: 2.5vw;
+    line-height: 0.1;
+    vertical-align: 0.3vw;
 }

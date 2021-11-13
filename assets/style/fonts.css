@@ -134,17 +134,3 @@
     font-weight: normal;
     font-style: normal;
 }
-/* Rakkas Regular */
-@font-face {
-    font-family: 'Rakkas';
-    src: url('https://fonts.googleapis.com/css2?family=Rakkas&display=swap') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-/* Ramaraja Regular */
-@font-face {
-    font-family: 'Ramaraja';
-    src: url('https://fonts.googleapis.com/css2?family=Ramaraja&display=swap') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}

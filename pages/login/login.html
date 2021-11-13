@@ -10,129 +10,163 @@
     <link rel="stylesheet" href="../../assets/style/fonts.css">
     <link rel="stylesheet" href="../../assets/style/reset.css">
     <link rel="stylesheet" href="../../assets/style/api.css">
+
+    <!-- Ramaraja font -->
+    <link href="https://fonts.googleapis.com/css2?family=Ramaraja&display=swap" rel="stylesheet">
+    <!-- Rakkas font -->
+    <link href="https://fonts.googleapis.com/css2?family=Rakkas&display=swap" rel="stylesheet">
 </head>
 <body>
     <header id="header">
-        <div class="container">
-            <h2>Login</h2>
-        </div>
+        <h2 class="login_title show">Login</h2>
+        <h2 class="logout_title">Logout</h2>
     </header>
 
     <main id="main">
-        <div class="container">
-            <div class="login_contents show">
-                <div class="login_desc">
-                    <span>안녕하세요 API 프로젝트, 노인정입니다! 저희의 노력이 담긴 포트폴리오에서 첫 번째 활용해 본 API는 간편 로그인 기능입니다. 간편 로그인을 효과적으로 하기 위해서 가장 유명한 사이트 4곳을 선정하여 API를 찾고 적용해보았습니다. 초보 개발자들의 좌충우돌 프로젝트를 관심 있게 지켜봐 주셔서 감사합니다. :)   Bye: Youn, Park, Song, Jo</span>
-                </div>
-                <ul>
-                    <!-- FaceBook -->
-                    <li onclick="fnFbCustomLogin();">
-                        <a href="javascript:void(0)">
-                            <img src="../../assets/img/facebook.svg">
-                            <span>Facebook Login</span>
-                        </a>
-                    </li>
-                    <!-- Google -->
-                    <li id="GgCustomLogin">
-                        <a href="javascript:void(0)">
-                            <span>Google Login</span>
-                        </a>
-                    </li>
-                    <!-- Naver -->
-                    <li>
-                        <!-- 아래와같이 아이디를 꼭 써준다. -->
-                        <a id="naverIdLogin_loginButton" href="javascript:void(0)">
-                            <span>Naver Login</span>
-                        </a>
-                    </li>
-                    <!-- Kakao -->
-                    <li onclick="kakaoLogin();">
-                        <a href="javascript:void(0)">
-                            <span>Kakao Login</span>
-                        </a>
-                    </li>
-                </ul>
+        <div class="login_contents show">
+            <div class="login_desc">
+                <span>안녕하세요 API 프로젝트, 노인정입니다! 저희의 노력이 담긴 포트폴리오에서 첫 번째 활용해 본 API는 간편 로그인 기능입니다. 간편 로그인을 효과적으로 하기 위해서 가장 유명한 사이트 4곳을 선정하여 API를 찾고 적용해보았습니다. 초보 개발자들의 좌충우돌 프로젝트를 관심 있게 지켜봐 주셔서 감사합니다. :)   Bye: Youn, Park, Song, Jo</span>
             </div>
-            <div class="logout_contents">
+            <div id="status"></div>
+            <ul>
+                <!-- FaceBook -->
+                <li class="fb-login-button" scope="public_profile,email" onlogin="checkLoginState();" data-max-rows="1">
+                    <a href="javascript:void(0)">
+                        <img src="../../assets/img/facebook.svg">
+                        <span>Facebook Login</span>
+                    </a>
+                </li>
+                <!-- Google -->
+                <li id="GgCustomLogin">
+                    <a href="javascript:void(0)">
+                        <img src="../../assets/img/google.svg">
+                        <span>Google Login</span>
+                    </a>
+                </li>
+                <!-- Naver -->
+                <li>
+                    <!-- 아래와같이 아이디를 꼭 써준다. -->
+                    <a id="naverIdLogin_loginButton" href="javascript:void(0)">
+                        <img src="../../assets/img/naver.svg">
+                        <span>Naver Login</span>
+                    </a>
+                </li>
+                <!-- Kakao -->
+                <li onclick="kakaoLogin();">
+                    <a href="javascript:void(0)">
+                        <img src="../../assets/img/kakao.svg">
+                        <span>Kakao Login</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="logout_contents">
+            <div class="logout_desc">
                 <span>간편로그인 완료!</span>
                 <span class="name">님 반갑습니다. :)</span>
-                <P>
-                    저희 사이트는 API 중점의 페이지이기에 기능이 잘 작동하는지를 확인하기에 정보를 저장하지 않습니다! 안전하게<br>
-                    기능테스트를 마무리하셨음으로 뒤돌아가기를 눌러주세요! 감사합니다.:)
-                </p>
-                <ul>
-
-                    <li onclick="FacebookLogout(); return false;">
-                        <a href="javascript:void(0)">
-                            <span>Facebook LogOut</span>
-                        </a>
-                    </li>
-                    <li onclick="googleLogout();">
-                        <a href="javascript:void(0)">
-                            <span>Google LogOut</span>
-                        </a>
-                    </li>
-                    <li onclick="naverLogout(); return false;">
-                        <a href="javascript:void(0)">
-                            <span>Naver LogOut</span>
-                        </a>
-                    </li>
-                    <li onclick="kakaoLogout();">
-                        <a href="javascript:void(0)">
-                            <span>Kakao LogOut</span>
-                        </a>
-                      </li>
-                </ul>
-                <!-- GooGle -->
+                <span>저희 사이트는 API 중점의 페이지이기에 기능이 잘 작동하는지를 확인하기에 정보를 저장하지 않습니다! 안전하게 기능테스트를 마무리하셨음으로 뒤돌아가기를 눌러주세요! 감사합니다.:)</span>
             </div>
+            <ul>
+                <li onclick="FacebookLogout(); return false;">
+                    <a href="javascript:void(0)">
+                        <img src="../../assets/img/facebook.svg">
+                        <span>Facebook Logout</span>
+                    </a>
+                </li>
+                <li onclick="googleLogout();">
+                    <a href="javascript:void(0)">
+                        <img src="../../assets/img/google.svg">
+                        <span>Google Logout</span>
+                    </a>
+                </li>
+                <li onclick="naverLogout(); return false;">
+                    <a href="javascript:void(0)">
+                        <img src="../../assets/img/naver.svg">
+                        <span>Naver Logout</span>
+                    </a>
+                </li>
+                <li onclick="kakaoLogout();">
+                    <a href="javascript:void(0)">
+                        <img src="../../assets/img/kakao.svg">
+                        <span>Kakao Logout</span>
+                    </a>
+                    </li>
+            </ul>
+            <!-- GooGle -->
         </div>
     </main>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v10.0&appId=1588150011384568" nonce="SiOBIhLG"></script>
+    <!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script> -->
     <script>
     {
-        // FaceBook
-        function fbLogin() {
-        // 로그인 여부 체크
-        FB.getLoginStatus(function(response) {
 
-            if (response.status === 'connected') {
-                FB.api('/me', function(res) {
-                    // 제일 마지막에 실행
-                    console.log("Success Login : " + response.name);
-                    // alert("Success Login : " + response.name);
+        {
+            window.fbAsyncInit = function() {
+                FB.init({
+                appId : '313006453711208',
+                cookie : true, // enable cookies to allow the server to access the session
+                xfbml : true, // parse social plugins on this page
+                version : 'v12.0' // use graph api version 2.8
                 });
-            } else if (response.status === 'not_authorized') {
-                // 사람은 Facebook에 로그인했지만 앱에는 로그인하지 않았습니다.
-                alert('앱에 로그인해야 이용가능한 기능입니다.');
-            } else {
-                // 그 사람은 Facebook에 로그인하지 않았으므로이 앱에 로그인했는지 여부는 확실하지 않습니다.
-                alert('페이스북에 로그인해야 이용가능한 기능입니다.');
+
+                FB.getLoginStatus(function(response) {
+                    statusChangeCallback(response);
+                });
+            };
+
+            (function(d, s, id){
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js"
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+            function statusChangeCallback(response) {
+                
+                console.log('statusChangeCallback');
+
+                if (response.status === 'connected') {
+                    console.log(response.authResponse.accessToken);
+                    // Logged into your app and Facebook.
+                    testAPI();
+                } else if (response.status === 'not_authorized') {
+                    document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
+                } else {
+                    document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
+                }
+
             }
-        }, true); // 중복실행방지
-    }
 
-    window.fbAsyncInit = function() {
-        FB.init({
-            appId   : '634408314637920',
-            cookie  : true,
-            xfbml   : true,
-            version : 'v2.8'
-        });
-    };
+            function checkLoginState() {
+                FB.getLoginStatus(function(response) {
+                    statusChangeCallback(response);
+                });
+            }
+            
+            function testAPI() {
+                console.log('Welcome! Fetching your information.... ');
+                FB.api(
+                    '/me',
+                    {"fields":"id,name,email"},
+                    function(response) {
+                    // Insert your code here
+                    console.log('Successful login for: ' + response.name);
 
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        // ko_KR 을 en_US 로 바꾸면 영문으로 로그인버튼을 사용할 수 있어요.
-        js.src = "//connect.facebook.net/ko_KR/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk')); 
+                    document.getElementById('status').innerHTML = JSON.stringify(response);
+                    }
+                );
+            }
 
+            function fblogout(){
+                FB.logout(function(response) {
+                    window.location.reload();
+                });
+            }
+        }
 
         {
             // Kakao
@@ -144,7 +178,9 @@
                     Kakao.API.request({
                     url: '/v2/user/me',
                     success: function (response) {
-                        console.log(response)
+                        console.log(response.kakao_account.profile.nickname)
+
+                        onLogin(response.kakao_account.profile.nickname)
                     },
                     fail: function (error) {
                         console.log(error)
@@ -156,6 +192,7 @@
                 },
                 })
             }
+            
             //카카오로그아웃  
             function kakaoLogout() {
                 if (Kakao.Auth.getAccessToken()) {
@@ -170,16 +207,16 @@
                 })
                 Kakao.Auth.setAccessToken(undefined)
                 }
-            }
+            }  
         }
         
         {
             //네이버 로그인
             var naverLogin = new naver.LoginWithNaverId(
                 {
-                    clientId: "UyEsAoE0YpeE77dahouC", //내 애플리케이션 정보에 cliendId를 입력해줍니다.
-                    callbackUrl: window.location.hostname+"/pages/login/login.html", // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
-                    isPopup: false,
+                    clientId: "8cL65jnOZOuOYa5YyMgl", //내 애플리케이션 정보에 cliendId를 입력해줍니다.
+                    callbackUrl: "http://localhost:5500/pages/login/login.html", // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
+                    isPopup: true,
                     callbackHandle: true
                 }
             );	
@@ -272,6 +309,8 @@
         function onLogin(name){
             document.querySelector(".login_contents").classList.remove("show");
             document.querySelector(".logout_contents").classList.add("show")
+            document.querySelector(".login_title").classList.remove("show");
+            document.querySelector(".logout_title").classList.add("show");
             setName(name);
         }
 
@@ -279,6 +318,8 @@
         function onLogout(){
             document.querySelector(".login_contents").classList.add("show");
             document.querySelector(".logout_contents").classList.remove("show")
+            document.querySelector(".login_title").classList.add("show");
+            document.querySelector(".logout_title").classList.remove("show");
         }
 
         function setName(str){
