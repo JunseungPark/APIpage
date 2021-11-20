@@ -42,31 +42,94 @@
 <body>
     <div class="scroll">000</div>
     <div class="fixed-cont">
-        <div class="top-link">GoLink</div>
-        <div class="menu-clip"><span></span></div>
+        <div class="top-link"><a href="../pages/login/login.html"></a>GoLink</div>
     </div>
     <div id="contents">
-        <section id="section1">
-            <div class="s1-contents fixed">
+        <section id="main">
+            <!-- Login APi -->
+            <div class="s-contents s1 fixed"
+                data-0="transform:translate(-50%,-50%)"
+                data-3000="transform:translate(50%,-50%)"
+            >
                 <div class="content-wrap">
                     <div class="content-number">01</div>
+                    <div class="content-img"><img src="../assets/img/mok01.png" alt="Mockup"></div>
+                    <div class="content-desc">
+                        <p>간편로그인을 통해 간편한 로그인이 가능한 사이트를 구현해보았습니다. 해당 사이트를 가입함으로 더 좋은 사이트를 경험할 수 있도록 사용자 중점에서 생각하였습니다.</p>
+                    </div>
+                </div>
+                <div class="s-img"><img src="../assets/img/main.jpg" alt="이미지"></div>
+                <div class="s-title"><span class="span1">Login</span><span class="span2">API</span></div>
+            </div>
+            <!-- Login APi -->
+            
+            <!-- Weather API -->
+            <div class="s-contents s2 fixed"
+                data-0="transform:translate(-150%, -50%)"
+                data-3000="transform:translate(-50%, -50%)"
+                data-4000="transform:translate(-50%,-50%)"
+                data-7000="transform:translate(50%,-50%)"
+            >
+                <div class="content-wrap">
+                    <div class="content-number">02</div>
+                    <div class="content-img"><img src="../assets/img/mok02.svg" alt="Mockup"></div>
+                    <div class="content-desc">
+                        <p>안녕하세요 API 프로젝트, 노인정입니다! 저희의 노력이 담긴 포트폴리오에서 두 번째 활용해 본 API는 날씨 기능입니다. 효과적으로 사용자에게 현재 날씨를 알려주기 위하여 기온, 미세먼지의 정보를 불러왔고 그 정보를 아이콘을 통해 직관적으로 노출하여 사용자에 이해와 편의성에 도움을 주기 위한 기획을 하였습니다. 비록 완벽하게 세부적인 내용을 담지는 못하였지만 API를 불러와서 적용하는 공부를 하기 위한 페이지로 이쁘게 봐주세요! 감사합니다.</p>
+                    </div>
+                </div>
+                <div class="s-img"><img src="../assets/img/main2.svg" alt="이미지"></div>
+                <div class="s-title title-weather"><span class="span1">WEATHER</span><span class="span2">API</span></div>
+            </div>
+            <!-- Weather API -->
+
+            <div class="s-contents s2 fixed"
+                data-0="transform:translate(-250%, -50%)"
+                data-3000="transform:translate(-150%, -50%)"
+                data-4000="transform:translate(-150%, -50%)"
+                data-7000="transform:translate(-50%, -50%)"
+            >
+                <div class="content-wrap">
+                    <div class="content-number">03</div>
                     <div class="content-img"><img src="../assets/img/Free iMac Mockup 1.png" alt="Mockup"></div>
                     <div class="content-desc">
                         <p>간편로그인을 통해 간편한 로그인이 가능한 사이트를 구현해보았습니다. 해당 사이트를 가입함으로 더 좋은 사이트를 경험할 수 있도록 사용자 중점에서 생각하였습니다.</p>
                     </div>
                 </div>
-                <div class="s1-img"><img src="../assets/img/image 2.jpg" alt="이미지"></div>
+                <div class="s-img"><img src="../assets/img/image 2.jpg" alt="이미지"></div>
+                <div class="s-title"><span class="span1">asdasd</span><span class="span2">API</span></div>
             </div>
-            <div class="s1-title"><span class="span1">Login</span><span class="span2">API</span></div>
         </section>
     </div>
 </body>
 </html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/skrollr/0.6.30/skrollr.min.js"></script>
 <script>
-    var s = skrollr.init();
+
+    //scrollr 플러그인 시작
+    const s = skrollr.init();
+
+    //이동할 링크모음
+    const link = [
+        "../pages/login/login.html",
+        "../pages/weather/weather.html"
+    ];
+
+    //scrolltop 값
+    let scrollTop = 0;
+
+    //스크롤 이벤트 핸들러
     window.addEventListener("scroll", () => {
-        let scrollTop = document.documentElement.scrollTop || window.scrollY || window.pageYOffset;
+        scrollTop = document.documentElement.scrollTop || window.scrollY || window.pageYOffset;
         document.querySelector(".scroll").innerHTML = scrollTop;
     })
+
+    //링크 클릭시 이동할 페이지 분기할 코드
+    document.querySelector('.top-link').addEventListener("click",(e)=>{
+        //scrolltop 값으로 비교
+        if(scrollTop < 3000){                               //LOGIN   페이지
+            window.location = link[0];
+        } else if (scrollTop >= 3000 && scrollTop < 6000 ){ //WEATHER 페이지
+            window.location = link[1];
+        }
+    });
 </script>

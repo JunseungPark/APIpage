@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name ="google-signin-client_id" content="402643377877-fhavvrhokhttvhcuvlle09s5vg4t61ia.apps.googleusercontent.com">
+    <title>Login APi</title>
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="../../assets/style/fonts.css">
+    <link rel="stylesheet" href="../../assets/style/reset.css">
+    <link rel="stylesheet" href="../../assets/style/api.css">
+
+    <!-- Ramaraja font -->
+    <link href="https://fonts.googleapis.com/css2?family=Ramaraja&display=swap" rel="stylesheet">
+    <!-- Rakkas font -->
+    <link href="https://fonts.googleapis.com/css2?family=Rakkas&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header id="header">
+        <h2 class="header_title">Weather</h2>
+    </header>
+
+    <main id="main">
+        <div class="main_contents">
+            <div class="main_desc">
+                <span><strong>안녕하세요 API 프로젝트, 노인정입니다!</strong>저희의 노력이 담긴 포트폴리오에서 두 번째 활용해 본 API는 날씨 기능입니다. 효과적으로 사용자에게 현재 날씨를 알려주기 위하여 기온, 미세먼지의 정보를 불러왔고 그 정보를 아이콘을 통해 직관적으로 노출하여 사용자에 이해와 편의성에 도움을 주기 위한 기획을 하였습니다. 비록 완벽하게 세부적인 내용을 담지는 못하였지만 API를 불러와서 적용하는 공부를 하기 위한 페이지로 이쁘게 봐주세요!<em>Bye: Youn, Park, Song, Jo</em></span>
+            </div>
+            <div id="status"></div>
+
+            <div class="info-box">
+                <div class="weather">
+                    <div class="location">서울특별시</div>
+                    <div class="state">맑음</div>
+                    <div class="tem">10℃</div>
+                    <div class="img"><img src="../../assets/img/rain.svg" alt=""></div>
+                </div>
+                <div class="dust">
+                    <div class="dust-title">미세먼지</div>
+                    <div class="grade">좋음</div>
+                    <div class="value">농도 1 (10㎍/㎥)</div>
+                    <div class="img"><img src="../../assets/img/veryGood.svg" alt=""></div>
+                </div>
+            </div>
+        </div>
+        <figure class="back_main"><img src="../../assets/img/maintag.jpg" />
+            <figcaption><span>Main</span></figcaption>
+            <a href="../main.html"></a>
+        </figure>
+    </main>
+    
+    <script>
+        /* 기상청 코드 */
+        /*
+        response -> {
+            wf (날씨) => 맑음, 구름많음, 흐림,
+            wfCd (날씨코드) => DB01 : 맑음, DB03 : 구름많음 ,DB04 : 흐림,
+            rnYn (강수형태) => 0 : 강수없음, 1 : 비, 2 : 비/눈,  3: 눈, 4: 소나기,
+            ta (예상기온(℃)) =>  numEF가 오전인 경우 ta : 예상 최저기온
+                                 numEF가 오후인 경우 ta : 예상 최고기온,
+        }       
+        */
+        /* 대기오염 코드 */
+        /*
+        response -> {
+            pm10Grade => 1 :좋음 ,2 : 보통,3 : 나쁨 ,4: 매우 나쁨  (미세먼지( P M 1 0 )  24 시간 등급자료),
+            pm10Value => 79 (㎍/㎥)
+        }       
+        */
+
+        const setWeather = (response1) => {
+            console.log(response1)
+            const state = document.querySelector(".state");
+            const img = document.querySelectorAll(".img > img")[0];
+            const tem = document.querySelector(".tem");
+
+                        
+            const images = [
+                "../../assets/img/sunny.svg",
+                "../../assets/img/cloud.svg",
+                "../../assets/img/rain.svg",
+                "../../assets/img/snow.svg",
+            ]
+            const weatherInfo = {
+                location: "", 
+                condition: "",
+                condition2: "",
+                temperature: "",
+            }
+            
+
+            weatherInfo.location = response1.response.body.items.item[0].regId;         
+            weatherInfo.condition = response1.response.body.items.item[0].wfCd; 
+            weatherInfo.condition2 = response1.response.body.items.item[0].rnYn;
+            weatherInfo.temperature = response1.response.body.items.item[0].ta;         
+            
+            ( weatherInfo.temperature == "" ) ? weatherInfo.temperature = "0" : "" ;
+
+            // wf (날씨) => 맑음, 구름많음, 흐림,
+            // wfCd (날씨코드) => DB01 : 맑음, DB03 : 구름많음 ,DB04 : 흐림,
+            // rnYn (강수형태) => 0 : 강수없음, 1 : 비, 2 : 비/눈,  3: 눈, 4: 소나기,
+            // ta (예상기온(℃)) =>  numEF가 오전인 경우 ta : 예상 최저기온
+            //                      numEF가 오후인 경우 ta : 예상 최고기온,
+
+
+            weatherInfo.location = "서울";
+            // state.textContent
+
+            if( weatherInfo.condition === "DB01" ){
+                state.textContent = "맑음";
+                img.src = images[0];
+            } else {
+                if(weatherInfo.condition2 === 0) {
+                    state.textContent = "흐림";
+                    img.src = images[1];
+                } else if ( weatherInfo.condition2 === 1 &&  weatherInfo.condition2 === 4) {
+                    state.textContent = "흐림 비";
+                    img.src = images[2];
+                } else if ( weatherInfo.condition2 === 2 &&  weatherInfo.condition2 === 3) {
+                    state.textContent = "눈";
+                    img.src = images[3];
+                }
+            }
+
+            tem.textContent = (weatherInfo.temperature === "0" ) ? "온도X" :weatherInfo.temperature + "℃";
+        }
+
+
+        const setDust = (response2) => {
+            console.log(response2)
+            const dustInfo = {
+                condition: "",
+                value: "",
+            }
+
+            const images = [
+                "../../assets/img/veryGood.svg",
+                "../../assets/img/good.svg",
+                "../../assets/img/veryBad.svg",
+                "../../assets/img/bad.svg",
+            ]
+
+            const img = document.querySelectorAll('.img > img')[1];
+            const value = document.querySelector('.value');
+            const grade = document.querySelector('.grade');
+            
+            let temp = response2.response.body.items.filter( (el,index) =>{
+                if( el.stationName == "중구" ){
+                    return el;	
+                }
+            });
+
+            dustInfo.condition = temp[0].pm10Grade;
+            dustInfo.value = temp[0].pm10Value;
+            
+            
+            //1 :좋음 ,2 : 보통,3 : 나쁨 ,4: 매우 나쁨 
+            switch( dustInfo.condition ){
+                case "1" :
+                    grade.textContent = "좋음";
+                    img.src = images[0];
+                    break;
+                case "2" :
+                    grade.textContent = "보통";
+                    img.src = images[1];
+                    break;
+                case "3" :
+                    grade.textContent = "나쁨";
+                    img.src = images[2];
+                    break;
+                case "4" :
+                    grade.textContent = "매우나쁨";
+                    img.src = images[3];
+                    break;
+            }
+            value.textContent = `농도 ${dustInfo.value} (10㎍/㎥)`;
+        }
+
+
+
+        const weather = () => {
+
+
+            const myHeaders = new Headers();
+                myHeaders.append("Cookie", "JSESSIONID=etM75kNdYtFa6LaNVJmludj5lMgRCTtwgYBJJzZI8DnBKqMJpV13MRJP9wSkW6Df.amV1c19kb21haW4vbmV3c2t5Mw==");
+
+            const requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                redirect: 'follow'
+            };
+
+
+            fetch(`http://apis.data.go.kr/1360000/VilageFcstMsgService/getLandFcst?serviceKey=6Iu%2F%2BZkWqiowhEHtGkcHu7MJbahjDmf9SJvDR7wLscf4fMfwBzV2JBQ8yoqboMt3L9Cue8TP8anAHunG2JsHcg%3D%3D&pageNo=1&numOfRows=10&dataType=JSON&regId=11B10101`, requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    setWeather(result);
+                })
+                .catch(error => console.log('error', error));
+
+            // weatherInfo = response1;
+
+        }
+
+
+
+        //미세먼지 예보 함수
+        const dust = () => {
+
+            //키값 지정
+            const myHeaders = new Headers();
+                myHeaders.append("Cookie", "JSESSIONID=1uE2IhhqQgj4NLbHQquiIHFMzxB6xS51ggdaczzKiLl2Jf9XplNdb5zIwxvDJi81.openapiwas2_servlet_engine4; WMONID=PEQ7OISJ7Qp");
+
+            //요청 헤더 지정
+            const requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                redirect: 'follow',
+            };
+
+            fetch(`http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=6Iu%2F%2BZkWqiowhEHtGkcHu7MJbahjDmf9SJvDR7wLscf4fMfwBzV2JBQ8yoqboMt3L9Cue8TP8anAHunG2JsHcg%3D%3D&returnType=json&numOfRows=100&pageNo=1&sidoName=%EC%84%9C%EC%9A%B8&ver=1.0`, requestOptions)
+                .then(response => response.json())
+                .then(result => setDust(result))
+                .catch(error => console.log('error', error));      
+        }
+
+
+
+        //초기화 함수
+        const init = () => {
+            dust();
+            weather();
+        }
+
+        window.onload = () => {
+            init();
+        }
+
+        
+    </script>
+</body>
+</html>

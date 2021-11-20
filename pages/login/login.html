@@ -18,14 +18,14 @@
 </head>
 <body>
     <header id="header">
-        <h2 class="login_title show">Login</h2>
-        <h2 class="logout_title">Logout</h2>
+        <h2 class="header_title login_title">Login</h2>
+        <h2 class="header_title logout_title none">Logout</h2>
     </header>
 
     <main id="main">
-        <div class="login_contents show">
-            <div class="login_desc">
-                <span>안녕하세요 API 프로젝트, 노인정입니다! 저희의 노력이 담긴 포트폴리오에서 첫 번째 활용해 본 API는 간편 로그인 기능입니다. 간편 로그인을 효과적으로 하기 위해서 가장 유명한 사이트 4곳을 선정하여 API를 찾고 적용해보았습니다. 초보 개발자들의 좌충우돌 프로젝트를 관심 있게 지켜봐 주셔서 감사합니다. :)   Bye: Youn, Park, Song, Jo</span>
+        <div class="main_contents login_contents">
+            <div class="main_desc">
+                <span><strong>안녕하세요 API 프로젝트, 노인정입니다!</strong>저희의 노력이 담긴 포트폴리오에서 첫 번째 활용해 본 API는 간편 로그인 기능입니다. 간편 로그인을 효과적으로 하기 위해서 가장 유명한 사이트 3곳을 선정하여 API를 찾고 적용해보았습니다. 초보 개발자들의 좌충우돌 프로젝트를 관심 있게 지켜봐 주셔서 감사합니다.<em>Bye: Youn, Park, Song, Jo</em></span>
             </div>
             <div id="status"></div>
             <ul>
@@ -59,8 +59,8 @@
                 </li>
             </ul>
         </div>
-        <div class="logout_contents">
-            <div class="logout_desc">
+        <div class="main_contents logout_contents none">
+            <div class="main_desc">
                 <span>간편로그인 완료!</span>
                 <span class="name">님 반갑습니다. :)</span>
                 <span>저희 사이트는 API 중점의 페이지이기에 기능이 잘 작동하는지를 확인하기에 정보를 저장하지 않습니다! 안전하게 기능테스트를 마무리하셨음으로 뒤돌아가기를 눌러주세요! 감사합니다.:)</span>
@@ -296,19 +296,19 @@
 
         // 로그인
         function onLogin(name){
-            document.querySelector(".login_contents").classList.remove("show");
-            document.querySelector(".logout_contents").classList.add("show")
-            document.querySelector(".login_title").classList.remove("show");
-            document.querySelector(".logout_title").classList.add("show");
+            document.querySelector(".login_contents").classList.add("none");
+            document.querySelector(".logout_contents").classList.remove("none")
+            document.querySelector(".login_title").classList.add("none");
+            document.querySelector(".logout_title").classList.remove("none");
             setName(name);
         }
 
         // 로그아웃
         function onLogout(){
-            document.querySelector(".login_contents").classList.add("show");
-            document.querySelector(".logout_contents").classList.remove("show")
-            document.querySelector(".login_title").classList.add("show");
-            document.querySelector(".logout_title").classList.remove("show");
+            document.querySelector(".login_contents").classList.remove("none");
+            document.querySelector(".logout_contents").classList.add("none")
+            document.querySelector(".login_title").classList.remove("none");
+            document.querySelector(".logout_title").classList.add("none");
         }
 
         function setName(str){
