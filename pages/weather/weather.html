@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name ="google-signin-client_id" content="402643377877-fhavvrhokhttvhcuvlle09s5vg4t61ia.apps.googleusercontent.com">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Login APi</title>
     <!-- stylesheet -->
@@ -181,9 +180,11 @@
 
         const weather = () => {
 
-
+            var myHeaders = new Headers();
+                myHeaders.append("Cookie", "JSESSIONID=TYWpxSQHFSWiZH7ZGiFwUUIyfJa1ebHq9c7171gh6PVAm3alpO7741FLzUqV8wiC.amV1c19kb21haW4vbmV3c2t5Mw==");
             const requestOptions = {
                 method: 'GET',
+                headers: myHeaders,
                 redirect: 'follow'
             };
 
@@ -203,10 +204,12 @@
 
         //미세먼지 예보 함수
         const dust = () => {
-
+            var myHeaders = new Headers();
+                myHeaders.append("Cookie", "JSESSIONID=TYWpxSQHFSWiZH7ZGiFwUUIyfJa1ebHq9c7171gh6PVAm3alpO7741FLzUqV8wiC.amV1c19kb21haW4vbmV3c2t5Mw==");
             //요청 헤더 지정
             const requestOptions = {
                 method: 'GET',
+                headers: myHeaders,
                 redirect: 'follow',
             };
 
