@@ -122,7 +122,7 @@
                 }
             }
 
-            tem.textContent = (weatherInfo.temperature === "0" ) ? "온도X" :weatherInfo.temperature + "℃";
+            tem.textContent = (weatherInfo.temperature === "0" ) ? response1.response.body.items.item[1].ta + "℃" :weatherInfo.temperature + "℃";
         }
 
 
@@ -175,7 +175,7 @@
             }
             value.textContent = `농도 ${dustInfo.value} (10㎍/㎥)`;
         }
-        const proxyURL = 'https://corsanywhere.herokuapp.com/';
+        const proxyURL = 'https://peng-jo-proxy.herokuapp.com';
 
         const weather = () => {
             
@@ -184,11 +184,11 @@
             var requestOptions = {
                 method: 'GET',
                 redirect: 'follow',
-                mode: 'cors'
+
             };
 
 
-            fetch(`http://apis.data.go.kr/1360000/VilageFcstMsgService/getLandFcst?serviceKey=6Iu%2F%2BZkWqiowhEHtGkcHu7MJbahjDmf9SJvDR7wLscf4fMfwBzV2JBQ8yoqboMt3L9Cue8TP8anAHunG2JsHcg%3D%3D&pageNo=1&numOfRows=10&dataType=JSON&regId=11B10101`,requestOptions)
+            fetch(`${proxyURL}/1360000/VilageFcstMsgService/getLandFcst?serviceKey=6Iu%2F%2BZkWqiowhEHtGkcHu7MJbahjDmf9SJvDR7wLscf4fMfwBzV2JBQ8yoqboMt3L9Cue8TP8anAHunG2JsHcg%3D%3D&pageNo=1&numOfRows=10&dataType=JSON&regId=11B10101`,requestOptions)
                 .then(response => response.json())
                 .then(result => {
                     console.log(result);
@@ -211,10 +211,10 @@
             var requestOptions = {
                 method: 'GET',
                 redirect: 'follow',
-                mode: 'cors'
+
             };
 
-            fetch(`http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=6Iu%2F%2BZkWqiowhEHtGkcHu7MJbahjDmf9SJvDR7wLscf4fMfwBzV2JBQ8yoqboMt3L9Cue8TP8anAHunG2JsHcg%3D%3D&returnType=json&numOfRows=100&pageNo=1&sidoName=%EC%84%9C%EC%9A%B8&ver=1.0`,requestOptions)
+            fetch(`${proxyURL}/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=6Iu%2F%2BZkWqiowhEHtGkcHu7MJbahjDmf9SJvDR7wLscf4fMfwBzV2JBQ8yoqboMt3L9Cue8TP8anAHunG2JsHcg%3D%3D&returnType=json&numOfRows=100&pageNo=1&sidoName=%EC%84%9C%EC%9A%B8&ver=1.0`,requestOptions)
                 .then(response => response.json())
                 .then(result => setDust(result))
                 .catch(error => console.log('error', error));      
