@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>weather APi</title>
     <!-- stylesheet -->
     <link rel="stylesheet" href="../../assets/style/fonts.css">
@@ -67,7 +67,7 @@
             pm10Value => 79 (㎍/㎥)
         }       
         */
-
+        const proxyUrl = "https://cors-anywhere.herokuapp.com/"
         const setWeather = (response1) => {
             console.log(response1)
             const state = document.querySelector(".state");
@@ -179,7 +179,7 @@
 
 
         const weather = () => {
-            const proxyUrl = "https://cors-anywhere.herokuapp.com/"
+            
             var myHeaders = new Headers();
                 myHeaders.append("Cookie", "JSESSIONID=TYWpxSQHFSWiZH7ZGiFwUUIyfJa1ebHq9c7171gh6PVAm3alpO7741FLzUqV8wiC.amV1c19kb21haW4vbmV3c2t5Mw==");
             const requestOptions = {
@@ -204,7 +204,7 @@
 
         //미세먼지 예보 함수
         const dust = () => {
-            const proxyUrl = "https://cors-anywhere.herokuapp.com/"
+
             var myHeaders = new Headers();
                 myHeaders.append("Cookie", "JSESSIONID=TYWpxSQHFSWiZH7ZGiFwUUIyfJa1ebHq9c7171gh6PVAm3alpO7741FLzUqV8wiC.amV1c19kb21haW4vbmV3c2t5Mw==");
             //요청 헤더 지정
