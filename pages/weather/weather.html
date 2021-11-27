@@ -67,8 +67,7 @@
             pm10Value => 79 (㎍/㎥)
         }       
         */
-        const proxyUrl = "http://localhost/proxy"
-        // const proxyUrl = "https://cors-anywhere.herokuapp.com/"
+
         const setWeather = (response1) => {
             console.log(response1)
             const state = document.querySelector(".state");
@@ -176,21 +175,20 @@
             }
             value.textContent = `농도 ${dustInfo.value} (10㎍/㎥)`;
         }
-
-
+        const proxyURL = 'https://corsanywhere.herokuapp.com/';
 
         const weather = () => {
             
             var myHeaders = new Headers();
                 myHeaders.append("Cookie", "JSESSIONID=TYWpxSQHFSWiZH7ZGiFwUUIyfJa1ebHq9c7171gh6PVAm3alpO7741FLzUqV8wiC.amV1c19kb21haW4vbmV3c2t5Mw==");
-            const requestOptions = {
+            var requestOptions = {
                 method: 'GET',
-                // headers: myHeaders,
-                redirect: 'follow'
+                redirect: 'follow',
+                mode: 'cors'
             };
 
 
-            fetch(`http://apis.data.go.kr/1360000/VilageFcstMsgService/getLandFcst?serviceKey=6Iu%2F%2BZkWqiowhEHtGkcHu7MJbahjDmf9SJvDR7wLscf4fMfwBzV2JBQ8yoqboMt3L9Cue8TP8anAHunG2JsHcg%3D%3D&pageNo=1&numOfRows=10&dataType=JSON&regId=11B10101`,requestOptions)
+            fetch(`${proxyUrl}http://apis.data.go.kr/1360000/VilageFcstMsgService/getLandFcst?serviceKey=6Iu%2F%2BZkWqiowhEHtGkcHu7MJbahjDmf9SJvDR7wLscf4fMfwBzV2JBQ8yoqboMt3L9Cue8TP8anAHunG2JsHcg%3D%3D&pageNo=1&numOfRows=10&dataType=JSON&regId=11B10101`,requestOptions)
                 .then(response => response.json())
                 .then(result => {
                     console.log(result);
@@ -216,7 +214,7 @@
                 redirect: 'follow',
             };
 
-            fetch(`${proxyUrl}http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=6Iu%2F%2BZkWqiowhEHtGkcHu7MJbahjDmf9SJvDR7wLscf4fMfwBzV2JBQ8yoqboMt3L9Cue8TP8anAHunG2JsHcg%3D%3D&returnType=json&numOfRows=100&pageNo=1&sidoName=%EC%84%9C%EC%9A%B8&ver=1.0`,requestOptions)
+            fetch(`${proxyUrl}/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=6Iu%2F%2BZkWqiowhEHtGkcHu7MJbahjDmf9SJvDR7wLscf4fMfwBzV2JBQ8yoqboMt3L9Cue8TP8anAHunG2JsHcg%3D%3D&returnType=json&numOfRows=100&pageNo=1&sidoName=%EC%84%9C%EC%9A%B8&ver=1.0`,requestOptions)
                 .then(response => response.json())
                 .then(result => setDust(result))
                 .catch(error => console.log('error', error));      
