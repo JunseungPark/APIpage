@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
     <title>weather APi</title>
     <!-- stylesheet -->
     <link rel="stylesheet" href="../../assets/style/fonts.css">
@@ -67,7 +67,8 @@
             pm10Value => 79 (㎍/㎥)
         }       
         */
-        const proxyUrl = "http://localhost/proxy/"
+        const proxyUrl = "http://localhost/proxy"
+        // const proxyUrl = "https://cors-anywhere.herokuapp.com/"
         const setWeather = (response1) => {
             console.log(response1)
             const state = document.querySelector(".state");
@@ -189,7 +190,7 @@
             };
 
 
-            fetch(`http://apis.data.go.kr/1360000/VilageFcstMsgService/getLandFcst?serviceKey=6Iu%2F%2BZkWqiowhEHtGkcHu7MJbahjDmf9SJvDR7wLscf4fMfwBzV2JBQ8yoqboMt3L9Cue8TP8anAHunG2JsHcg%3D%3D&pageNo=1&numOfRows=10&dataType=JSON&regId=11B10101`)
+            fetch(`http://apis.data.go.kr/1360000/VilageFcstMsgService/getLandFcst?serviceKey=6Iu%2F%2BZkWqiowhEHtGkcHu7MJbahjDmf9SJvDR7wLscf4fMfwBzV2JBQ8yoqboMt3L9Cue8TP8anAHunG2JsHcg%3D%3D&pageNo=1&numOfRows=10&dataType=JSON&regId=11B10101`,requestOptions)
                 .then(response => response.json())
                 .then(result => {
                     console.log(result);
